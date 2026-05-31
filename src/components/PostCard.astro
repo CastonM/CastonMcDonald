@@ -1,0 +1,59 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  href: string;
+  tags?: string[];
+}
+
+const { title, description, date, href, tags = [] } = Astro.props;
+const formattedDate = new Intl.DateTimeFormat("en", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "UTC",
+}).format(date);
+---
+
+<article class="post-card">
+  <p>{formattedDate}</p>
+  <h3><a href={href}>{title}</a></h3>
+  <p class="description">{description}</p>
+  {
+    tags.length > 0 && (
+      <ul class="pill-list" aria-label={`Tags for ${title}`}>
+        {tags.map((tag) => <li>{tag}</li>)}
+      </ul>
+    )
+  }
+</article>
+
+<style>
+  .post-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    background: var(--surface);
+  }
+
+  .post-card > p:first-child {
+    margin: 0 0 0.5rem;
+    color: var(--muted);
+    font-size: 0.86rem;
+  }
+
+  h3 {
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  h3 a {
+    text-decoration: none;
+  }
+
+  .description {
+    margin: 0.7rem 0 0;
+    color: var(--muted);
+  }
+</style>

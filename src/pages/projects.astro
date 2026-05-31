@@ -1,0 +1,59 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+
+const projects = await getCollection("projects");
+---
+
+<BaseLayout title="Projects | Caston McDonald" description="Projects and experiments from Caston McDonald.">
+  <section class="container page-heading">
+    <p class="eyebrow">Projects</p>
+    <h1>Work in progress, experiments, and useful systems.</h1>
+    <p>
+      A simple index of projects and work areas. These cards can grow into deeper
+      case studies as the work becomes more polished.
+    </p>
+  </section>
+
+  <section class="container project-grid" aria-label="Projects">
+    {
+      projects.map((project) => (
+        <ProjectCard
+          title={project.data.title}
+          description={project.data.description}
+          status={project.data.status}
+          tech={project.data.tech}
+          repoUrl={project.data.repoUrl}
+          demoUrl={project.data.demoUrl}
+        />
+      ))
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .page-heading {
+    padding: 64px 0 28px;
+  }
+
+  h1 {
+    max-width: 820px;
+    margin: 0;
+    font-size: clamp(2.5rem, 6vw, 5.4rem);
+    line-height: 0.96;
+  }
+
+  .page-heading p:last-child {
+    max-width: 660px;
+    color: var(--muted);
+    font-size: 1.08rem;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    padding-bottom: 64px;
+  }
+</style>

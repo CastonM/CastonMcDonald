@@ -1,0 +1,58 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import PostCard from "@components/PostCard.astro";
+
+const posts = (await getCollection("blog"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const base = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+const withBase = (path: string) => `${base}${path.replace(/^\//, "")}`;
+---
+
+<BaseLayout title="Blog | Caston McDonald" description="Longer notes from Caston McDonald.">
+  <section class="container page-heading">
+    <p class="eyebrow">Blog</p>
+    <h1>Longer notes from the workbench.</h1>
+    <p>Writing on applied AI, systems engineering, consulting, and projects as they develop.</p>
+  </section>
+
+  <section class="container post-list" aria-label="Blog posts">
+    {posts.map((post) => (
+      <PostCard
+        title={post.data.title}
+        description={post.data.description}
+        date={post.data.date}
+        href={withBase(`/blog/${post.slug}/`)}
+        tags={post.data.tags}
+      />
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .page-heading {
+    padding: 64px 0 28px;
+  }
+
+  h1 {
+    max-width: 760px;
+    margin: 0;
+    font-size: clamp(2.5rem, 6vw, 5.4rem);
+    line-height: 0.96;
+  }
+
+  .page-heading p:last-child {
+    max-width: 640px;
+    color: var(--muted);
+    font-size: 1.08rem;
+  }
+
+  .post-list {
+    display: grid;
+    gap: 1rem;
+    padding-bottom: 64px;
+  }
+</style>

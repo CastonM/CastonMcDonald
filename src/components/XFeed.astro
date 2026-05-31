@@ -1,0 +1,92 @@
+---
+const handle = "CastonMcD";
+---
+
+<section class="x-feed" aria-labelledby="reflection-heading">
+  <div class="x-feed-header">
+    <p class="eyebrow">Reflection Feed</p>
+    <h2 id="reflection-heading">What I am thinking through now</h2>
+    <p>
+      My X feed is the most current layer of this site: quick reflections,
+      experiments, and work-in-progress notes before they become longer posts.
+    </p>
+  </div>
+  <div class="timeline-shell">
+    <a
+      class="twitter-timeline"
+      data-height="760"
+      data-chrome="noheader nofooter transparent"
+      href={`https://twitter.com/${handle}`}
+    >
+      Posts by @{handle}
+    </a>
+    <p class="fallback">
+      If the live feed does not load, visit
+      <a href={`https://x.com/${handle}`}>@{handle} on X</a>.
+    </p>
+  </div>
+</section>
+
+<script is:inline src="https://platform.twitter.com/widgets.js" async></script>
+
+<style>
+  .x-feed {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(320px, 1.2fr);
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .x-feed-header {
+    position: sticky;
+    top: 96px;
+  }
+
+  h2 {
+    max-width: 12ch;
+    margin: 0;
+    font-size: clamp(2.1rem, 5vw, 4.7rem);
+    line-height: 0.96;
+  }
+
+  .x-feed-header p:last-child {
+    max-width: 34rem;
+    color: var(--muted);
+    font-size: 1.08rem;
+  }
+
+  .timeline-shell {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    min-height: 460px;
+  }
+
+  .twitter-timeline {
+    display: block;
+    padding: 1rem;
+  }
+
+  .fallback {
+    margin: 0;
+    border-top: 1px solid var(--border);
+    padding: 0.85rem 1rem;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  @media (max-width: 860px) {
+    .x-feed {
+      grid-template-columns: 1fr;
+    }
+
+    .x-feed-header {
+      position: static;
+    }
+
+    h2 {
+      max-width: 100%;
+    }
+  }
+</style>

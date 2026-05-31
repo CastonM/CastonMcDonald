@@ -1,0 +1,78 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  status: string;
+  tech: string[];
+  repoUrl?: string;
+  demoUrl?: string;
+}
+
+const { title, description, status, tech, repoUrl, demoUrl } = Astro.props;
+---
+
+<article class="project-card">
+  <div class="project-topline">
+    <h3>{title}</h3>
+    <span>{status}</span>
+  </div>
+  <p>{description}</p>
+  <ul class="pill-list" aria-label={`Technologies for ${title}`}>
+    {tech.map((item) => <li>{item}</li>)}
+  </ul>
+  {
+    (repoUrl || demoUrl) && (
+      <div class="project-links">
+        {repoUrl && <a href={repoUrl}>Repo</a>}
+        {demoUrl && <a href={demoUrl}>Demo</a>}
+      </div>
+    )
+  }
+</article>
+
+<style>
+  .project-card {
+    display: flex;
+    min-height: 230px;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    background: var(--surface);
+  }
+
+  .project-topline {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  h3 {
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .project-topline span {
+    flex: 0 0 auto;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    padding: 0.2rem 0.55rem;
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 0.8rem 0 0;
+    color: var(--muted);
+  }
+
+  .project-links {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: auto;
+    padding-top: 1.2rem;
+    font-weight: 700;
+  }
+</style>
