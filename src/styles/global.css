@@ -47,14 +47,14 @@ img {
 .eyebrow {
   margin: 0 0 0.6rem;
   color: var(--accent);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 760;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .section {
-  padding: 56px 0;
+  padding: 32px 0;
 }
 
 .section-header {
@@ -62,13 +62,14 @@ img {
   align-items: end;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.8rem;
 }
 
 .section-header h2 {
   margin: 0;
-  font-size: clamp(1.6rem, 3vw, 2.35rem);
-  line-height: 1.1;
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  line-height: 1.15;
+  letter-spacing: -0.012em;
 }
 
 .section-header p {
@@ -103,13 +104,14 @@ img {
 
 .prose {
   max-width: 720px;
-  padding: 56px 0;
+  padding: 42px 0;
 }
 
 .prose h1 {
   margin: 0 0 1rem;
-  font-size: clamp(2.2rem, 5vw, 4rem);
-  line-height: 0.98;
+  font-size: clamp(1.75rem, 3.2vw, 2.65rem);
+  line-height: 1.08;
+  letter-spacing: -0.012em;
 }
 
 .prose h2 {
@@ -119,7 +121,7 @@ img {
 
 .prose p {
   color: #343230;
-  font-size: 1.06rem;
+  font-size: 1.02rem;
 }
 
 @media (max-width: 720px) {

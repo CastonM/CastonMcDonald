@@ -2,15 +2,12 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import PostCard from "@components/PostCard.astro";
-import ProjectCard from "@components/ProjectCard.astro";
-import XFeed from "@components/XFeed.astro";
 
-const posts = (await getCollection("blog"))
+const posts = (await getCollection("posts"))
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
-const projects = (await getCollection("projects")).slice(0, 3);
 const base = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
@@ -18,106 +15,140 @@ const withBase = (path: string) => `${base}${path.replace(/^\//, "")}`;
 ---
 
 <BaseLayout
-  title="Caston McDonald | Applied AI Engineer"
-  description="Applied AI Engineer/Consultant and Systems Engineering Student."
+  title="Caston McDonald"
+  description="MSCS at Georgia Tech, applied enterprise AI, technical consulting, and systems thinking."
 >
-  <section class="hero">
-    <div class="container hero-inner">
-      <p class="eyebrow">Applied AI Engineer/Consultant, Systems Engineering Student</p>
-      <h1>Building useful AI systems and documenting the work in public.</h1>
-      <p>
-        I use this site as a home base for live reflections, longer notes, and
-        the projects I am shaping across applied AI, consulting, and systems
-        engineering.
-      </p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <XFeed />
-    </div>
-  </section>
-
-  <section class="section recent-work">
-    <div class="container">
-      <div class="section-header">
-        <div>
-          <p class="eyebrow">Recent Work</p>
-          <h2>Projects in motion</h2>
-          <p>Selected work areas and experiments that will become more detailed over time.</p>
+  <section class="home">
+    <div class="container home-grid">
+      <div class="profile-panel">
+        <p class="intro-label">MSCS @ GT // Applied AI</p>
+        <h1>Helping AI ideas survive contact with real enterprise systems.</h1>
+        <p class="course-line">Current summer courses: HPC + GPU</p>
+        <p class="intro-text">
+          I work in AI consulting, helping teams connect strategy, data,
+          product direction, and technical delivery. Outside of work, I am a
+          Georgia Tech MSCS student focused on systems.
+        </p>
+        <div class="focus-list" aria-label="Focus areas">
+          <span>Enterprise AI</span>
+          <span>Data strategy</span>
+          <span>Systems thinking</span>
         </div>
-        <a href={withBase("/projects/")}>All projects</a>
       </div>
-      <div class="card-grid">
-        {
-          projects.map((project) => (
-            <ProjectCard
-              title={project.data.title}
-              description={project.data.description}
-              status={project.data.status}
-              tech={project.data.tech}
-              repoUrl={project.data.repoUrl}
-              demoUrl={project.data.demoUrl}
-            />
-          ))
-        }
-      </div>
-    </div>
-  </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-header">
-        <div>
-          <p class="eyebrow">Blog</p>
-          <h2>Longer notes</h2>
-          <p>Posts for ideas that need more room than a timeline.</p>
+      <div class="posts-panel">
+        <div class="panel-header">
+          <h2>Posts</h2>
+          <a href={withBase("/posts/")}>All posts</a>
         </div>
-        <a href={withBase("/blog/")}>All posts</a>
-      </div>
-      <div class="card-grid">
-        {
-          posts.map((post) => (
-            <PostCard
-              title={post.data.title}
-              description={post.data.description}
-              date={post.data.date}
-              href={withBase(`/blog/${post.slug}/`)}
-              tags={post.data.tags}
-            />
-          ))
-        }
+        <div class="post-stack">
+          {
+            posts.map((post) => (
+              <PostCard
+                title={post.data.title}
+                description={post.data.description}
+                date={post.data.date}
+                href={withBase(`/posts/${post.slug}/`)}
+              />
+            ))
+          }
+        </div>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .hero {
-    border-bottom: 1px solid var(--border);
-    padding: 82px 0 64px;
+  .home {
+    padding: 42px 0 52px;
   }
 
-  .hero-inner {
-    max-width: 940px;
+  .home-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .profile-panel,
+  .posts-panel {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    padding: 1.15rem;
+  }
+
+  .intro-label {
+    margin: 0 0 0.65rem;
+    color: var(--accent);
+    font-size: 0.92rem;
+    font-weight: 780;
   }
 
   h1 {
-    max-width: 11ch;
     margin: 0;
-    font-size: clamp(3rem, 9vw, 7.4rem);
-    line-height: 0.92;
+    color: var(--text);
+    font-size: clamp(1.45rem, 2.4vw, 2.1rem);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
   }
 
-  .hero p:last-child {
-    max-width: 680px;
+  .course-line {
+    margin: 1rem 0 0;
+    color: var(--accent);
+    font-size: 0.95rem;
+    font-weight: 760;
+  }
+
+  .intro-text {
+    max-width: 760px;
+    margin: 0.7rem 0 0;
     color: var(--muted);
-    font-size: clamp(1.08rem, 2vw, 1.32rem);
+    font-size: 0.98rem;
   }
 
-  .recent-work {
-    border-block: 1px solid var(--border);
-    background: color-mix(in srgb, var(--surface) 58%, var(--bg));
+  .focus-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .focus-list span {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.25rem 0.6rem;
+    color: var(--muted);
+    font-size: 0.84rem;
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .panel-header h2 {
+    margin: 0;
+    font-size: 1.15rem;
+  }
+
+  .panel-header a {
+    color: var(--muted);
+    font-size: 0.92rem;
+    text-decoration: none;
+  }
+
+  .post-stack {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  @media (max-width: 860px) {
+    .home-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

@@ -1,6 +1,6 @@
 # Caston McDonald
 
-Personal site and blog for Caston McDonald, built with Astro and configured for GitHub Pages.
+Personal site and posts for Caston McDonald, built with Astro and configured for GitHub Pages.
 
 ## Commands
 

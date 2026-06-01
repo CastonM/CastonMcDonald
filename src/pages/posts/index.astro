@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import PostCard from "@components/PostCard.astro";
 
-const posts = (await getCollection("blog"))
+const posts = (await getCollection("posts"))
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const base = import.meta.env.BASE_URL.endsWith("/")
@@ -12,21 +12,19 @@ const base = import.meta.env.BASE_URL.endsWith("/")
 const withBase = (path: string) => `${base}${path.replace(/^\//, "")}`;
 ---
 
-<BaseLayout title="Blog | Caston McDonald" description="Longer notes from Caston McDonald.">
+<BaseLayout title="Posts | Caston McDonald" description="Posts from Caston McDonald on enterprise AI, systems, and technical learning.">
   <section class="container page-heading">
-    <p class="eyebrow">Blog</p>
-    <h1>Longer notes from the workbench.</h1>
-    <p>Writing on applied AI, systems engineering, consulting, and projects as they develop.</p>
+    <h1>Writing on enterprise AI, systems, and technical learning.</h1>
+    <p>Short essays on the work I am doing, the systems I am studying, and the ideas I am trying to make durable.</p>
   </section>
 
-  <section class="container post-list" aria-label="Blog posts">
+  <section class="container post-list" aria-label="Posts">
     {posts.map((post) => (
       <PostCard
         title={post.data.title}
         description={post.data.description}
         date={post.data.date}
-        href={withBase(`/blog/${post.slug}/`)}
-        tags={post.data.tags}
+        href={withBase(`/posts/${post.slug}/`)}
       />
     ))}
   </section>
@@ -34,20 +32,21 @@ const withBase = (path: string) => `${base}${path.replace(/^\//, "")}`;
 
 <style>
   .page-heading {
-    padding: 64px 0 28px;
+    padding: 40px 0 22px;
   }
 
   h1 {
-    max-width: 760px;
+    max-width: 720px;
     margin: 0;
-    font-size: clamp(2.5rem, 6vw, 5.4rem);
-    line-height: 0.96;
+    font-size: clamp(1.75rem, 3.2vw, 2.65rem);
+    line-height: 1.08;
+    letter-spacing: -0.012em;
   }
 
   .page-heading p:last-child {
-    max-width: 640px;
+    max-width: 680px;
     color: var(--muted);
-    font-size: 1.08rem;
+    font-size: 1.02rem;
   }
 
   .post-list {

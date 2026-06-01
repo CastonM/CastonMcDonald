@@ -3,7 +3,7 @@ import { getCollection, render } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
-  const posts = (await getCollection("blog")).filter((post) => !post.data.draft);
+  const posts = (await getCollection("posts")).filter((post) => !post.data.draft);
 
   return posts.map((post) => ({
     params: { slug: post.slug },
@@ -27,17 +27,10 @@ const withBase = (path: string) => `${base}${path.replace(/^\//, "")}`;
 
 <BaseLayout title={`${post.data.title} | Caston McDonald`} description={post.data.description}>
   <article class="container prose">
-    <a class="back-link" href={withBase("/blog/")}>Back to blog</a>
-    <p class="eyebrow">{formattedDate}</p>
+    <a class="back-link" href={withBase("/posts/")}>Back to posts</a>
+    <p class="post-date">{formattedDate}</p>
     <h1>{post.data.title}</h1>
     <p class="dek">{post.data.description}</p>
-    {
-      post.data.tags.length > 0 && (
-        <ul class="pill-list" aria-label={`Tags for ${post.data.title}`}>
-          {post.data.tags.map((tag) => <li>{tag}</li>)}
-        </ul>
-      )
-    }
     <div class="post-body">
       <Content />
     </div>
@@ -47,17 +40,24 @@ const withBase = (path: string) => `${base}${path.replace(/^\//, "")}`;
 <style>
   .back-link {
     display: inline-block;
-    margin-bottom: 1.4rem;
+    margin-bottom: 1rem;
     color: var(--muted);
+    font-size: 0.94rem;
+  }
+
+  .post-date {
+    margin: 0 0 0.55rem;
+    color: var(--muted);
+    font-size: 0.92rem;
   }
 
   .dek {
     color: var(--muted);
-    font-size: 1.2rem;
+    font-size: 1.02rem;
   }
 
   .post-body {
-    margin-top: 2.4rem;
+    margin-top: 1.8rem;
     border-top: 1px solid var(--border);
     padding-top: 1.5rem;
   }

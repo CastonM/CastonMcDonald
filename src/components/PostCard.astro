@@ -4,10 +4,9 @@ interface Props {
   description: string;
   date: Date;
   href: string;
-  tags?: string[];
 }
 
-const { title, description, date, href, tags = [] } = Astro.props;
+const { title, description, date, href } = Astro.props;
 const formattedDate = new Intl.DateTimeFormat("en", {
   month: "short",
   day: "numeric",
@@ -20,13 +19,6 @@ const formattedDate = new Intl.DateTimeFormat("en", {
   <p>{formattedDate}</p>
   <h3><a href={href}>{title}</a></h3>
   <p class="description">{description}</p>
-  {
-    tags.length > 0 && (
-      <ul class="pill-list" aria-label={`Tags for ${title}`}>
-        {tags.map((tag) => <li>{tag}</li>)}
-      </ul>
-    )
-  }
 </article>
 
 <style>
@@ -45,6 +37,7 @@ const formattedDate = new Intl.DateTimeFormat("en", {
 
   h3 {
     margin: 0;
+    font-size: 1.04rem;
     line-height: 1.2;
   }
 
@@ -53,7 +46,8 @@ const formattedDate = new Intl.DateTimeFormat("en", {
   }
 
   .description {
-    margin: 0.7rem 0 0;
+    margin: 0.65rem 0 0;
     color: var(--muted);
+    font-size: 0.94rem;
   }
 </style>
