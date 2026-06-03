@@ -19,136 +19,144 @@ const withBase = (path: string) => `${base}${path.replace(/^\//, "")}`;
   description="MSCS at Georgia Tech, applied enterprise AI, technical consulting, and systems thinking."
 >
   <section class="home">
-    <div class="container home-grid">
-      <div class="profile-panel">
-        <p class="intro-label">MSCS @ GT // Applied AI</p>
-        <h1>Helping AI ideas survive contact with real enterprise systems.</h1>
-        <p class="course-line">Current summer courses: HPC + GPU</p>
-        <p class="intro-text">
-          I work in AI consulting, helping teams connect strategy, data,
-          product direction, and technical delivery. Outside of work, I am a
-          Georgia Tech MSCS student focused on systems.
+    <div class="container">
+      <header class="intro">
+        <h1>Caston McDonald</h1>
+        <p>
+          I work in AI consulting, study systems at Georgia Tech, and use this
+          site as my home base for the things I am learning and building.
         </p>
-        <div class="focus-list" aria-label="Focus areas">
-          <span>Enterprise AI</span>
-          <span>Data strategy</span>
-          <span>Systems thinking</span>
-        </div>
-      </div>
+      </header>
 
-      <div class="posts-panel">
-        <div class="panel-header">
+      <nav class="home-links" aria-label="Primary links">
+        <a href={withBase("/about/")}>About</a>
+        <a href={withBase("/posts/")}>Posts</a>
+        <a href="https://github.com/CastonM">GitHub</a>
+        <a href="https://x.com/CastonMcD">X</a>
+      </nav>
+
+      <section class="index-section">
+        <h2>Work</h2>
+        <p>
+          Applied AI and data consulting: strategy, product direction,
+          technical readiness, and delivery.
+        </p>
+      </section>
+
+      <section class="index-section">
+        <h2>School</h2>
+        <p>
+          MSCS at Georgia Tech with a systems focus. Currently taking High
+          Performance Computing and GPU Hardware/Software.
+        </p>
+      </section>
+
+      <section class="index-section">
+        <div class="section-title-row">
           <h2>Posts</h2>
           <a href={withBase("/posts/")}>All posts</a>
         </div>
-        <div class="post-stack">
-          {
-            posts.map((post) => (
-              <PostCard
-                title={post.data.title}
-                description={post.data.description}
-                date={post.data.date}
-                href={withBase(`/posts/${post.slug}/`)}
-              />
-            ))
-          }
-        </div>
-      </div>
+        {
+          posts.map((post) => (
+            <PostCard
+              title={post.data.title}
+              description={post.data.description}
+              date={post.data.date}
+              href={withBase(`/posts/${post.slug}/`)}
+            />
+          ))
+        }
+      </section>
     </div>
   </section>
 </BaseLayout>
 
 <style>
   .home {
-    padding: 42px 0 52px;
+    padding: 42px 0 58px;
   }
 
-  .home-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
-    gap: 1rem;
-    align-items: start;
+  .intro {
+    max-width: 680px;
   }
 
-  .profile-panel,
-  .posts-panel {
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--surface);
-    padding: 1.15rem;
-  }
-
-  .intro-label {
-    margin: 0 0 0.65rem;
-    color: var(--accent);
-    font-size: 0.92rem;
-    font-weight: 780;
-  }
-
-  h1 {
+  .intro h1 {
     margin: 0;
-    color: var(--text);
-    font-size: clamp(1.45rem, 2.4vw, 2.1rem);
-    line-height: 1.12;
-    letter-spacing: -0.01em;
+    font-size: clamp(1.7rem, 4vw, 2.45rem);
+    line-height: 1.1;
+    letter-spacing: 0;
   }
 
-  .course-line {
-    margin: 1rem 0 0;
-    color: var(--accent);
-    font-size: 0.95rem;
-    font-weight: 760;
-  }
-
-  .intro-text {
-    max-width: 760px;
-    margin: 0.7rem 0 0;
+  .intro p {
+    margin: 0.9rem 0 0;
     color: var(--muted);
-    font-size: 0.98rem;
+    font-size: 1.05rem;
   }
 
-  .focus-list {
+  .home-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-
-  .focus-list span {
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 0.25rem 0.6rem;
-    color: var(--muted);
-    font-size: 0.84rem;
-  }
-
-  .panel-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     gap: 1rem;
-    margin-bottom: 0.8rem;
+    margin-top: 1.4rem;
   }
 
-  .panel-header h2 {
-    margin: 0;
-    font-size: 1.15rem;
+  .home-links a {
+    color: var(--text);
+    font-size: 0.96rem;
   }
 
-  .panel-header a {
-    color: var(--muted);
-    font-size: 0.92rem;
-    text-decoration: none;
-  }
-
-  .post-stack {
+  .index-section {
     display: grid;
-    gap: 0.75rem;
+    grid-template-columns: 9.5rem minmax(0, 1fr);
+    gap: 1rem;
+    border-top: 1px solid var(--border);
+    padding: 1.2rem 0;
+    margin-top: 1.6rem;
   }
 
-  @media (max-width: 860px) {
-    .home-grid {
+  .index-section + .index-section {
+    margin-top: 0;
+  }
+
+  .index-section h2 {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .index-section p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .section-title-row {
+    display: contents;
+  }
+
+  .section-title-row a {
+    justify-self: end;
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+
+  .index-section :global(.post-card) {
+    grid-column: 2;
+  }
+
+  @media (max-width: 640px) {
+    .index-section {
       grid-template-columns: 1fr;
+      gap: 0.4rem;
+    }
+
+    .section-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .index-section :global(.post-card) {
+      grid-column: auto;
     }
   }
 </style>
