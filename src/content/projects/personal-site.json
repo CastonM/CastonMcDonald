@@ -1,7 +1,0 @@
-{
-  "title": "Personal Site",
-  "description": "A clean Astro site for collecting posts, projects, and professional context.",
-  "status": "Building",
-  "tech": ["Astro", "TypeScript", "GitHub Pages"],
-  "repoUrl": "https://github.com/CastonM/CastonMcDonald"
-}
